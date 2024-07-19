@@ -37,5 +37,28 @@ class UsersController {
             return responseBodyCreateUser;
         });
     }
+    getUsers(token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let endpointUsers = 'api/v1/users';
+            console.log(this.urlApi);
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            };
+            const reqOptions = {
+                method: 'GET',
+                headers: headers
+            };
+            const url = this.urlApi + endpointUsers;
+            const result = yield fetch(url, reqOptions);
+            console.log(`Status code: ${result.status}`);
+            if (result.status !== 200) {
+                console.log(`Response Body ${(yield result.json()).message}`);
+                throw new Error('Error get Users');
+            }
+            const responseBodyUsers = yield result.json();
+            return responseBodyUsers;
+        });
+    }
 }
 exports.UsersController = UsersController;

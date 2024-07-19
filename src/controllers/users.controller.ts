@@ -1,4 +1,4 @@
-import { RequestCreateUser, ResponseCreateUser } from "../models/users.model";
+import { RequestCreateUser, ResponseCreateUser, ResponseUsers } from "../models/users.model";
 
 export class UsersController {
     constructor(private urlApi: string = 'http://190.147.64.47:5155/') { }
@@ -28,5 +28,31 @@ export class UsersController {
 
         const responseBodyCreateUser: ResponseCreateUser = await result.json()
         return responseBodyCreateUser;
+    }
+
+    async getUsers(token: string): Promise<ResponseUsers> {
+        let endpointUsers: string = 'api/v1/users'
+        console.log(this.urlApi);
+
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+
+        const reqOptions: RequestInit = {
+            method: 'GET',
+            headers: headers
+        }
+
+        const url: string = this.urlApi + endpointUsers
+        const result: Response = await fetch(url, reqOptions)
+
+        console.log(`Status code: ${result.status}`)
+        if (result.status !== 200) {
+            console.log(`Response Body ${(await result.json()).message}`);
+            throw new Error('Error get Users')
+        }
+        const responseBodyUsers: ResponseUsers = await result.json()
+        return responseBodyUsers;
     }
 }
