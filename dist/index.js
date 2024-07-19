@@ -8,9 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+const auth_controller_1 = require("./controllers/auth.controller");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
+        const dataToLogin = {
+            email: 'prueba@prueba.pru',
+            password: 'C0ntr4S3gu++r4'
+        };
+        const authController = new auth_controller_1.AuthController();
         try {
+            const resultLogin = yield authController.postLogin(dataToLogin);
+            console.log(resultLogin);
+            const token = resultLogin.data.token;
+            console.log('Token:', token);
         }
         catch (error) {
             console.error(`=( : ${error}`);
