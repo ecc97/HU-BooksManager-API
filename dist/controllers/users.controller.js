@@ -60,5 +60,29 @@ class UsersController {
             return responseBodyUsers;
         });
     }
+    updateRoleUser(id, data, token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let endpointUpdateRoleUser = `api/v1/users/${id}/role?role=${data.role}`;
+            console.log(this.urlApi);
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            };
+            const reqOptions = {
+                method: 'PATCH',
+                headers: headers,
+                body: JSON.stringify(data)
+            };
+            const url = this.urlApi + endpointUpdateRoleUser;
+            const result = yield fetch(url, reqOptions);
+            console.log(`Status code: ${result.status}`);
+            if (result.status !== 200) {
+                console.log(`Response Body ${(yield result.json()).message}`);
+                throw new Error('Error update Role User');
+            }
+            const responseUpdateRoleUser = yield result.json();
+            return responseUpdateRoleUser;
+        });
+    }
 }
 exports.UsersController = UsersController;

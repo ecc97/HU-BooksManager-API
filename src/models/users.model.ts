@@ -14,3 +14,12 @@ export interface ResponseUsers {
     message: string,
     data: Record<string, string>
 }
+
+export interface RequestUpdateRoleUser{
+    role: string
+}
+
+export interface ResponseUpdateRoleUser {
+    message: string,
+    data: Record<string, string>
+}
