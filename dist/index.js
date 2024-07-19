@@ -17,6 +17,15 @@ function main() {
             email: 'prueba@prueba.pru',
             password: 'C0ntr4S3gu++r4'
         };
+        // const userToRegister: RequestCreateUser = {
+        //     name: 'Juan',
+        //     lastName: 'Barrientos',
+        //     email: 'juanb1@mail.com',
+        //     password: 'password777'
+        // }
+        const roleToUpdate = {
+            role: 'user'
+        };
         const authController = new auth_controller_1.AuthController();
         const usersController = new users_controller_1.UsersController();
         try {
@@ -24,8 +33,12 @@ function main() {
             console.log(resultLogin);
             const token = resultLogin.data.token;
             console.log('Token:', token);
-            const users = yield usersController.getUsers(token);
-            console.log(users);
+            // const createUserResponse: ResponseCreateUser = await usersController.createUser(userToRegister)
+            // console.log(createUserResponse)
+            //    const users: ResponseUsers = await usersController.getUsers(token)
+            //    console.log(users)
+            const roleUpdated = yield usersController.updateRoleUser('5094ec65-2b76-42d4-9332-cf8a6ad80665', roleToUpdate, token);
+            console.log(roleUpdated);
         }
         catch (error) {
             console.error(`=( : ${error}`);
