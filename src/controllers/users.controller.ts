@@ -1,4 +1,4 @@
-import { RequestCreateUser, ResponseCreateUser, ResponseUsers } from "../models/users.model";
+import { RequestCreateUser, ResponseCreateUser, ResponseUsers, RequestUpdateRoleUser, ResponseUpdateRoleUser } from "../models/users.model";
 
 export class UsersController {
     constructor(private urlApi: string = 'http://190.147.64.47:5155/') { }
@@ -54,5 +54,33 @@ export class UsersController {
         }
         const responseBodyUsers: ResponseUsers = await result.json()
         return responseBodyUsers;
+    }
+
+    async updateRoleUser(id: string, data: RequestUpdateRoleUser, token: string): Promise<ResponseUpdateRoleUser> { 
+        let endpointUpdateRoleUser: string = `api/v1/users/${id}/role?role=${data.role}`
+        console.log(this.urlApi);
+
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+
+        const reqOptions: RequestInit = {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify(data)
+        }
+
+        const url: string = this.urlApi + endpointUpdateRoleUser
+        const result: Response = await fetch(url, reqOptions)
+
+        console.log(`Status code: ${result.status}`)
+        if (result.status!== 200) {
+                console.log(`Response Body ${(await result.json()).message}`);
+                throw new Error('Error update Role User')
+        }
+
+        const responseUpdateRoleUser: ResponseUpdateRoleUser = await result.json()
+        return responseUpdateRoleUser;
     }
 }
