@@ -1,0 +1,27 @@
+{
+  "name": "books-manager-api",
+  "version": "1.0.0",
+  "description": "books-manager project with endpoint consumption",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fast": "tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ecc97/HU-BooksManager-API.git"
+  },
+  "keywords": [
+    "book",
+    "library"
+  ],
+  "author": "ecc97",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ecc97/HU-BooksManager-API/issues"
+  },
+  "homepage": "https://github.com/ecc97/HU-BooksManager-API#readme",
+  "dependencies": {
+    "typescript": "^5.5.3"
+  }
+}
