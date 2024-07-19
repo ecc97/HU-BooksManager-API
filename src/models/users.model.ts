@@ -9,3 +9,8 @@ export interface ResponseCreateUser {
     message: string,
     data: Record<string, string>
 }
+
+export interface ResponseUsers {
+    message: string,
+    data: Record<string, string>
+}
