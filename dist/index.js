@@ -24,16 +24,16 @@ function main() {
         //     email: 'juanb1@mail.com',
         //     password: 'password777'
         // }
-        const roleToUpdate = {
-            role: 'admin'
-        };
-        const newBook = {
-            title: 'El Silencio de los Inocentes',
-            author: 'Miguel de Cervantes',
-            description: 'Una novela clásica del siglo XX que narra la historia de un joven y un hombre que se enamoran',
-            summary: 'Una historia de amor que se desarrolla en un mundo en crisis',
-            publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
-        };
+        // const roleToUpdate: RequestUpdateRoleUser = {
+        //     role: 'admin'
+        // }
+        // const newBook: RequestCreateBook = {
+        //     title: 'El Silencio de los Inocentes',
+        //     author: 'Miguel de Cervantes',
+        //     description: 'Una novela clásica del siglo XX que narra la historia de un joven y un hombre que se enamoran',
+        //     summary: 'Una historia de amor que se desarrolla en un mundo en crisis',
+        //     publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
+        // }
         const authController = new auth_controller_1.AuthController();
         const usersController = new users_controller_1.UsersController();
         const booksController = new books_controller_1.BooksController();
@@ -50,10 +50,8 @@ function main() {
             // console.log(roleUpdated)
             // const bookCreated: ResponseCreateBook = await booksController.createBook(newBook, token)
             // console.log(bookCreated)
-            // const books: ResponseBooks = await booksController.getBooks(token)
-            // console.log(books)
-            const resultBookById = yield booksController.getBooksId('1df12ba0-1452-42ea-bc6e-607ad1d82c97', token);
-            console.log(resultBookById);
+            const books = yield booksController.getBooks(token);
+            console.log(books);
         }
         catch (error) {
             console.error(`=( : ${error}`);
