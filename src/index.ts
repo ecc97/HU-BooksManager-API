@@ -1,6 +1,6 @@
 import { RequestLogin, ResponseLogin } from "./models/auth.model"
 import { ResponseCreateUser, RequestCreateUser, ResponseUsers, RequestUpdateRoleUser, ResponseUpdateRoleUser } from "./models/users.model"
-import { RequestCreateBook, ResponseCreateBook, ResponseBooks } from "./models/books.model"
+import { RequestCreateBook, ResponseCreateBook, ResponseBooks, RequestUpdateBook, ResponseUpdateBook } from "./models/books.model"
 import { AuthController } from "./controllers/auth.controller"
 import { UsersController } from "./controllers/users.controller"
 import { BooksController } from "./controllers/books.controller"
@@ -29,6 +29,12 @@ async function main(): Promise<void>{
     //     summary: 'Una historia de amor que se desarrolla en un mundo en crisis',
     //     publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
     // }
+
+    const updatedBookData: RequestUpdateBook = {
+        title: 'The Hospital',
+        author: 'Mario Maria',
+        publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
+    }
     
     const authController: AuthController = new AuthController()
     const usersController: UsersController = new UsersController()
@@ -56,8 +62,11 @@ async function main(): Promise<void>{
         // const books: ResponseBooks = await booksController.getBooks(token)
         // console.log(books)
 
-        const resultBookById: ResponseBooks = await booksController.getBooksId('1df12ba0-1452-42ea-bc6e-607ad1d82c97', token)
-        console.log(resultBookById)
+        // const resultBookById: ResponseBooks = await booksController.getBooksId('1df12ba0-1452-42ea-bc6e-607ad1d82c97', token)
+        // console.log(resultBookById)
+
+        const resultUpdateBook: ResponseUpdateBook = await booksController.updateBookById('45609c21-872d-48ab-8a32-bc7083b30a39', updatedBookData, token)
+        console.log(resultUpdateBook)
 
     } catch (error) {
         console.error(`=( : ${error}`)

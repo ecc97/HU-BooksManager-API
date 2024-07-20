@@ -1,4 +1,4 @@
-import { RequestCreateBook, ResponseCreateBook, ResponseBooks } from "../models/books.model";
+import { RequestCreateBook, ResponseCreateBook, ResponseBooks, RequestUpdateBook, ResponseUpdateBook } from "../models/books.model";
 
 export class BooksController {
     constructor(private urlApi: string = 'http://190.147.64.47:5155/') { 
@@ -87,4 +87,31 @@ export class BooksController {
         return responseBodyBooks;
     }
 
+    async updateBookById(id: string, data: RequestUpdateBook, token: string) {
+        let endpointBookById: string = `api/v1/books/${id}`
+        console.log(this.urlApi)
+    
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    
+        const reqOptions: RequestInit = {
+            method: 'PATCH',
+            headers: headers,
+            body: JSON.stringify(data)
+        }
+    
+        const url: string = this.urlApi + endpointBookById
+        const result: Response = await fetch(url, reqOptions)
+    
+        console.log(`Status code: ${result.status}`)
+        if (result.status!== 200) {
+            console.log(`Response Body ${(await result.json()).message}`)
+            throw new Error('Error updating book by id')
+        }
+    
+        const responseBodyUpdateBook: ResponseUpdateBook = await result.json()
+        return responseBodyUpdateBook
+      }
 }

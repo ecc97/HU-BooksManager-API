@@ -34,6 +34,11 @@ function main() {
         //     summary: 'Una historia de amor que se desarrolla en un mundo en crisis',
         //     publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
         // }
+        const updatedBookData = {
+            title: 'The Hospital',
+            author: 'Mario Maria',
+            publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
+        };
         const authController = new auth_controller_1.AuthController();
         const usersController = new users_controller_1.UsersController();
         const booksController = new books_controller_1.BooksController();
@@ -52,8 +57,10 @@ function main() {
             // console.log(bookCreated)
             // const books: ResponseBooks = await booksController.getBooks(token)
             // console.log(books)
-            const resultBookById = yield booksController.getBooksId('1df12ba0-1452-42ea-bc6e-607ad1d82c97', token);
-            console.log(resultBookById);
+            // const resultBookById: ResponseBooks = await booksController.getBooksId('1df12ba0-1452-42ea-bc6e-607ad1d82c97', token)
+            // console.log(resultBookById)
+            const resultUpdateBook = yield booksController.updateBookById('45609c21-872d-48ab-8a32-bc7083b30a39', updatedBookData, token);
+            console.log(resultUpdateBook);
         }
         catch (error) {
             console.error(`=( : ${error}`);
