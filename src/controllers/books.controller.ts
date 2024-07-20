@@ -1,4 +1,4 @@
-import { RequestCreateBook, ResponseCreateBook, ResponseBooks, RequestUpdateBook, ResponseUpdateBook } from "../models/books.model";
+import { RequestCreateBook, ResponseCreateBook, ResponseBooks, RequestUpdateBook, ResponseUpdateBook, ResponseDeleteBook } from "../models/books.model";
 
 export class BooksController {
     constructor(private urlApi: string = 'http://190.147.64.47:5155/') { 
@@ -114,4 +114,31 @@ export class BooksController {
         const responseBodyUpdateBook: ResponseUpdateBook = await result.json()
         return responseBodyUpdateBook
       }
+
+      async deleteBookById(id: string, token: string): Promise<ResponseDeleteBook> {
+        let endpointDeleteBook: string = `api/v1/books/${id}`
+        console.log(this.urlApi)
+    
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    
+        const reqOptions: RequestInit = {
+            method: 'DELETE',
+            headers: headers
+        }
+    
+        const url: string = this.urlApi + endpointDeleteBook
+        const result: Response = await fetch(url, reqOptions)
+    
+        console.log(`Status code: ${result.status}`)
+        if (result.status !== 200) {
+            console.log(`Response Body ${(await result.json()).message}`)
+            throw new Error('Error deleting book')
+        }
+    
+        const responseBodyDelete: ResponseDeleteBook = await result.json()
+        return responseBodyDelete
+    }
 }
