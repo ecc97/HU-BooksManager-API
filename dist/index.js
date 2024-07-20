@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const auth_controller_1 = require("./controllers/auth.controller");
 const users_controller_1 = require("./controllers/users.controller");
+const books_controller_1 = require("./controllers/books.controller");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const dataToLogin = {
@@ -24,10 +25,18 @@ function main() {
         //     password: 'password777'
         // }
         const roleToUpdate = {
-            role: 'user'
+            role: 'admin'
+        };
+        const newBook = {
+            title: 'El Silencio de los Inocentes',
+            author: 'Miguel de Cervantes',
+            description: 'Una novela clásica del siglo XX que narra la historia de un joven y un hombre que se enamoran',
+            summary: 'Una historia de amor que se desarrolla en un mundo en crisis',
+            publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
         };
         const authController = new auth_controller_1.AuthController();
         const usersController = new users_controller_1.UsersController();
+        const booksController = new books_controller_1.BooksController();
         try {
             const resultLogin = yield authController.postLogin(dataToLogin);
             console.log(resultLogin);
@@ -37,8 +46,14 @@ function main() {
             // console.log(createUserResponse)
             //    const users: ResponseUsers = await usersController.getUsers(token)
             //    console.log(users)
-            const roleUpdated = yield usersController.updateRoleUser('5094ec65-2b76-42d4-9332-cf8a6ad80665', roleToUpdate, token);
-            console.log(roleUpdated);
+            // const roleUpdated: ResponseUpdateRoleUser = await usersController.updateRoleUser('5094ec65-2b76-42d4-9332-cf8a6ad80665', roleToUpdate, token)
+            // console.log(roleUpdated)
+            // const bookCreated: ResponseCreateBook = await booksController.createBook(newBook, token)
+            // console.log(bookCreated)
+            // const books: ResponseBooks = await booksController.getBooks(token)
+            // console.log(books)
+            const resultBookById = yield booksController.getBooksId('1df12ba0-1452-42ea-bc6e-607ad1d82c97', token);
+            console.log(resultBookById);
         }
         catch (error) {
             console.error(`=( : ${error}`);
