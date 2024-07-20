@@ -10,3 +10,8 @@ export interface ResponseCreateBook {
     message: string,
     data: Record<string, string>
 }
+
+export interface ResponseBooks {
+    message: string,
+    data: Record<string, string>
+}

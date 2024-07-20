@@ -61,28 +61,5 @@ class BooksController {
             return responseBodyBooks;
         });
     }
-    getBooksId(id, token) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let endpointBooksId = `api/v1/books/${id}`;
-            console.log(this.urlApi);
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            };
-            const reqOptions = {
-                method: 'GET',
-                headers: headers
-            };
-            const url = this.urlApi + endpointBooksId;
-            const result = yield fetch(url, reqOptions);
-            console.log(`Status code: ${result.status}`);
-            if (result.status !== 200) {
-                console.log(`Response Body ${(yield result.json()).message}`);
-                throw new Error('Error get book by ID');
-            }
-            const responseBodyBooks = yield result.json();
-            return responseBodyBooks;
-        });
-    }
 }
 exports.BooksController = BooksController;

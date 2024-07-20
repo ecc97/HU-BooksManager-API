@@ -1,6 +1,6 @@
 import { RequestLogin, ResponseLogin } from "./models/auth.model"
 import { ResponseCreateUser, RequestCreateUser, ResponseUsers, RequestUpdateRoleUser, ResponseUpdateRoleUser } from "./models/users.model"
-import { RequestCreateBook, ResponseCreateBook } from "./models/books.model"
+import { RequestCreateBook, ResponseCreateBook, ResponseBooks } from "./models/books.model"
 import { AuthController } from "./controllers/auth.controller"
 import { UsersController } from "./controllers/users.controller"
 import { BooksController } from "./controllers/books.controller"
@@ -22,13 +22,13 @@ async function main(): Promise<void>{
     //     role: 'admin'
     // }
     
-    const newBook: RequestCreateBook = {
-        title: 'El Silencio de los Inocentes',
-        author: 'Miguel de Cervantes',
-        description: 'Una novela clásica del siglo XX que narra la historia de un joven y un hombre que se enamoran',
-        summary: 'Una historia de amor que se desarrolla en un mundo en crisis',
-        publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
-    }
+    // const newBook: RequestCreateBook = {
+    //     title: 'El Silencio de los Inocentes',
+    //     author: 'Miguel de Cervantes',
+    //     description: 'Una novela clásica del siglo XX que narra la historia de un joven y un hombre que se enamoran',
+    //     summary: 'Una historia de amor que se desarrolla en un mundo en crisis',
+    //     publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
+    // }
     
     const authController: AuthController = new AuthController()
     const usersController: UsersController = new UsersController()
@@ -50,9 +50,11 @@ async function main(): Promise<void>{
         // const roleUpdated: ResponseUpdateRoleUser = await usersController.updateRoleUser('5094ec65-2b76-42d4-9332-cf8a6ad80665', roleToUpdate, token)
         // console.log(roleUpdated)
 
-        const bookCreated: ResponseCreateBook = await booksController.createBook(newBook, token)
-        console.log(bookCreated)
+        // const bookCreated: ResponseCreateBook = await booksController.createBook(newBook, token)
+        // console.log(bookCreated)
 
+        const books: ResponseBooks = await booksController.getBooks(token)
+        console.log(books)
 
     } catch (error) {
         console.error(`=( : ${error}`)
