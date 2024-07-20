@@ -59,4 +59,32 @@ export class BooksController {
         const responseBodyBooks: ResponseBooks = await result.json()
         return responseBodyBooks;
     }
+
+    async getBooksId(id: string, token: string): Promise<ResponseBooks> {
+        let endpointBooksId: string = `api/v1/books/${id}`
+        console.log(this.urlApi)
+
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+
+        const reqOptions: RequestInit = {
+            method: 'GET',
+            headers: headers
+        }
+
+        const url: string = this.urlApi + endpointBooksId
+        const result: Response = await fetch(url, reqOptions)
+
+        console.log(`Status code: ${result.status}`)
+        if (result.status!== 200) {
+            console.log(`Response Body ${(await result.json()).message}`);
+            throw new Error('Error get book by ID')
+        }
+
+        const responseBodyBooks: ResponseBooks = await result.json()
+        return responseBodyBooks;
+    }
+
 }

@@ -53,8 +53,11 @@ async function main(): Promise<void>{
         // const bookCreated: ResponseCreateBook = await booksController.createBook(newBook, token)
         // console.log(bookCreated)
 
-        const books: ResponseBooks = await booksController.getBooks(token)
-        console.log(books)
+        // const books: ResponseBooks = await booksController.getBooks(token)
+        // console.log(books)
+
+        const resultBookById: ResponseBooks = await booksController.getBooksId('1df12ba0-1452-42ea-bc6e-607ad1d82c97', token)
+        console.log(resultBookById)
 
     } catch (error) {
         console.error(`=( : ${error}`)
