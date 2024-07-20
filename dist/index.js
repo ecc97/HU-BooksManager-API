@@ -59,8 +59,10 @@ function main() {
             // console.log(books)
             // const resultBookById: ResponseBooks = await booksController.getBooksId('1df12ba0-1452-42ea-bc6e-607ad1d82c97', token)
             // console.log(resultBookById)
-            const resultUpdateBook = yield booksController.updateBookById('45609c21-872d-48ab-8a32-bc7083b30a39', updatedBookData, token);
-            console.log(resultUpdateBook);
+            // const resultUpdateBook: ResponseUpdateBook = await booksController.updateBookById('45609c21-872d-48ab-8a32-bc7083b30a39', updatedBookData, token)
+            // console.log(resultUpdateBook)
+            const resultDeleteBook = yield booksController.deleteBookById('45609c21-872d-48ab-8a32-bc7083b30a39', token);
+            console.log(resultDeleteBook);
         }
         catch (error) {
             console.error(`=( : ${error}`);

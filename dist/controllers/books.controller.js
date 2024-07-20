@@ -108,5 +108,28 @@ class BooksController {
             return responseBodyUpdateBook;
         });
     }
+    deleteBookById(id, token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let endpointDeleteBook = `api/v1/books/${id}`;
+            console.log(this.urlApi);
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            };
+            const reqOptions = {
+                method: 'DELETE',
+                headers: headers
+            };
+            const url = this.urlApi + endpointDeleteBook;
+            const result = yield fetch(url, reqOptions);
+            console.log(`Status code: ${result.status}`);
+            if (result.status !== 200) {
+                console.log(`Response Body ${(yield result.json()).message}`);
+                throw new Error('Error deleting book');
+            }
+            const responseBodyDelete = yield result.json();
+            return responseBodyDelete;
+        });
+    }
 }
 exports.BooksController = BooksController;

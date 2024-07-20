@@ -28,3 +28,7 @@ export interface ResponseUpdateBook{
     message: string,
     data: Record<string, string>
 }
+
+export interface ResponseDeleteBook {
+    message: string
+}
