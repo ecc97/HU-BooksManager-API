@@ -13,7 +13,7 @@ export interface ResponseCreateBook {
 
 export interface ResponseBooks {
     message: string,
-    data: Record<string, string>
+    data: Record<string, string>[]
 }
 
 export interface RequestUpdateBook {
