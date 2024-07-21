@@ -104,7 +104,7 @@ export class BooksController {
     }
 
     // Método para actualizar un libro por su ID
-    async updateBookById(id: string, data: RequestUpdateBook, token: string) {
+    async updateBookById(id: string, data: RequestUpdateBook, token: string): Promise<ResponseUpdateBook> {
         let endpointBookById: string = `api/v1/books/${id}` // Definición del endpoint para la solicitud
         console.log(this.urlApi)
     
