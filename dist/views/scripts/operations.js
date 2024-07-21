@@ -22,3 +22,16 @@ export function createBookItem(newBook, token) {
         }
     });
 }
+export function updateBookItem(bookId, bookToUpdate, token) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const bookUpdated = yield booksController.updateBookById(bookId, bookToUpdate, token);
+            console.log(bookUpdated);
+            yield booksController.getBooks(token);
+            alert('Book updated successfully');
+        }
+        catch (error) {
+            console.error('Error updating book:', error);
+        }
+    });
+}

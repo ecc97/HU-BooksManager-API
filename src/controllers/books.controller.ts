@@ -1,4 +1,4 @@
-import { RequestCreateBook, ResponseCreateBook, ResponseBooks, RequestUpdateBook, ResponseUpdateBook, ResponseDeleteBook } from "../models/books.model";
+import { RequestCreateBook, ResponseCreateBook, ResponseBooks, RequestUpdateBook, ResponseUpdateBook, ResponseDeleteBook, Book, ResponseBook } from "../models/books.model.js";
 
 export class BooksController {
     constructor(private urlApi: string = 'http://190.147.64.47:5155/') { 
@@ -60,7 +60,7 @@ export class BooksController {
         return responseBodyBooks;
     }
 
-    async getBooksId(id: string, token: string): Promise<ResponseBooks> {
+    async getBooksId(id: string, token: string): Promise<ResponseBook> {
         let endpointBooksId: string = `api/v1/books/${id}`
         console.log(this.urlApi)
 
@@ -83,7 +83,7 @@ export class BooksController {
             throw new Error('Error get book by ID')
         }
 
-        const responseBodyBooks: ResponseBooks = await result.json()
+        const responseBodyBooks: ResponseBook = await result.json()
         return responseBodyBooks;
     }
 
