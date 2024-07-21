@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { BooksController } from "../../controllers/books.controller.js";
-import { createBookItem } from "./operations.js";
+import { createBookItem, updateBookItem } from "./operations.js";
 import { logoutUser } from "./logout.js";
 const booksController = new BooksController();
 const bookForm = document.getElementById('bookForm');
@@ -16,6 +16,7 @@ const title = document.getElementById('title');
 const author = document.getElementById('author');
 const description = document.getElementById('description');
 const summary = document.getElementById('summary');
+let id;
 document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, void 0, function* () {
     const booksList = document.getElementById('booksList');
     const token = localStorage.getItem('token');
@@ -69,9 +70,26 @@ document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, vo
                 summary: summary.value,
                 publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
             };
-            yield createBookItem(book, token);
+            if (id === undefined) {
+                yield createBookItem(book, token);
+            }
+            else {
+                yield updateBookItem(id, book, token);
+            }
             window.location.reload();
             bookForm.reset();
+        }));
+        booksList.addEventListener('click', (e) => __awaiter(void 0, void 0, void 0, function* () {
+            const target = e.target;
+            if (target.classList.contains('edit-btn')) {
+                id = target.dataset.id;
+                const book = yield booksController.getBooksId(id, token);
+                title.value = book.data.title;
+                ;
+                author.value = book.data.author;
+                description.value = book.data.description;
+                summary.value = book.data.summary;
+            }
         }));
         logoutUser();
     }

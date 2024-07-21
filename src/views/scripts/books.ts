@@ -1,6 +1,6 @@
-import { RequestCreateBook, ResponseCreateBook, ResponseBooks } from "../../models/books.model.js";
+import { RequestCreateBook, ResponseCreateBook, Book, ResponseBooks, ResponseBook } from "../../models/books.model.js";
 import { BooksController } from "../../controllers/books.controller.js";
-import { createBookItem } from "./operations.js";
+import { createBookItem, updateBookItem} from "./operations.js";
 import { logoutUser } from "./logout.js";
 
 const booksController: BooksController = new BooksController()
@@ -10,6 +10,8 @@ const title = document.getElementById('title') as HTMLInputElement;
 const author = document.getElementById('author') as HTMLInputElement;
 const description = document.getElementById('description') as HTMLInputElement;
 const summary = document.getElementById('summary') as HTMLInputElement;
+
+let id: string
 
 document.addEventListener('DOMContentLoaded', async () => {
     const booksList = document.getElementById('booksList') as HTMLUListElement;
@@ -78,9 +80,27 @@ document.addEventListener('DOMContentLoaded', async () => {
                 publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
             };
 
-            await createBookItem(book, token);
+            if (id === undefined) {
+                await createBookItem(book, token);
+            } else {
+                await updateBookItem(id, book, token);
+            }
+
             window.location.reload();
             bookForm.reset();
+        });
+
+        booksList.addEventListener('click', async (e: Event) => {
+            const target = e.target as HTMLElement;
+            if (target.classList.contains('edit-btn')) {
+                id = target.dataset.id!;
+                const book: ResponseBook = await booksController.getBooksId(id, token);
+                title.value = book.data.title;;
+                author.value = book.data.author;
+                description.value = book.data.description;
+                summary.value = book.data.summary;
+
+            }
         });
 
         logoutUser()
