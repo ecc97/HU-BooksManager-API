@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/ecc97/HU-BooksManager-API/issues"
   },
-  "homepage": "https://github.com/ecc97/HU-BooksManager-API#readme",
+  "homepage": "https://ecc97.github.io/HU-BooksManager-API/dist/",
   "dependencies": {
     "typescript": "^5.5.3"
   }
