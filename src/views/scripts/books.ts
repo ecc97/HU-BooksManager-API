@@ -1,8 +1,15 @@
-import { RequestCreateBook, ResponseCreateBook, ResponseBooks} from "../../models/books.model.js";
+import { RequestCreateBook, ResponseCreateBook, ResponseBooks } from "../../models/books.model.js";
 import { BooksController } from "../../controllers/books.controller.js";
+import { createBookItem } from "./operations.js";
 import { logoutUser } from "./logout.js";
 
 const booksController: BooksController = new BooksController()
+
+const bookForm = document.getElementById('bookForm') as HTMLFormElement;
+const title = document.getElementById('title') as HTMLInputElement;
+const author = document.getElementById('author') as HTMLInputElement;
+const description = document.getElementById('description') as HTMLInputElement;
+const summary = document.getElementById('summary') as HTMLInputElement;
 
 document.addEventListener('DOMContentLoaded', async () => {
     const booksList = document.getElementById('booksList') as HTMLUListElement;
@@ -58,6 +65,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             card.appendChild(buttonContainer);
             bookItem.appendChild(card);
             booksList.appendChild(bookItem);
+        });
+
+        bookForm.addEventListener('submit', async (e: Event) => {
+            e.preventDefault();
+
+            const book: RequestCreateBook = {
+                title: title.value,
+                author: author.value,
+                description: description.value,
+                summary: summary.value,
+                publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
+            };
+
+            await createBookItem(book, token);
+            window.location.reload();
+            bookForm.reset();
         });
 
         logoutUser()

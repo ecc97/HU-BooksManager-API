@@ -8,8 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { BooksController } from "../../controllers/books.controller.js";
+import { createBookItem } from "./operations.js";
 import { logoutUser } from "./logout.js";
 const booksController = new BooksController();
+const bookForm = document.getElementById('bookForm');
+const title = document.getElementById('title');
+const author = document.getElementById('author');
+const description = document.getElementById('description');
+const summary = document.getElementById('summary');
 document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, void 0, function* () {
     const booksList = document.getElementById('booksList');
     const token = localStorage.getItem('token');
@@ -54,6 +60,19 @@ document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, vo
             bookItem.appendChild(card);
             booksList.appendChild(bookItem);
         });
+        bookForm.addEventListener('submit', (e) => __awaiter(void 0, void 0, void 0, function* () {
+            e.preventDefault();
+            const book = {
+                title: title.value,
+                author: author.value,
+                description: description.value,
+                summary: summary.value,
+                publicationDate: new Date('2024-07-17T14:23:45Z').toISOString()
+            };
+            yield createBookItem(book, token);
+            window.location.reload();
+            bookForm.reset();
+        }));
         logoutUser();
     }
     else {
