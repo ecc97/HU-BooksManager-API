@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const resultLogin = yield authController.postLogin(dataToLogin);
             const token = resultLogin.data.token;
             localStorage.setItem('token', token);
-            window.location.href = 'pages/books.html';
+            alert('Bienvenido');
+            window.location.href = 'views/pages/books.html';
         }
         catch (error) {
             console.error(`Login error: ${error}`);
