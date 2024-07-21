@@ -35,3 +35,18 @@ export function updateBookItem(bookId, bookToUpdate, token) {
         }
     });
 }
+export function deleteBookItem(bookId, token, booksList, bookItem) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (confirm('Are you sure you want to delete this book?')) {
+            try {
+                yield booksController.deleteBookById(bookId, token);
+                booksList.removeChild(bookItem);
+                yield booksController.getBooks(token);
+                alert('Book deleted successfully');
+            }
+            catch (error) {
+                console.error('Error deleting book:', error);
+            }
+        }
+    });
+}
