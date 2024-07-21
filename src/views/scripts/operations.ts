@@ -24,3 +24,16 @@ export async function updateBookItem(bookId: string, bookToUpdate: RequestUpdate
         console.error('Error updating book:', error);
     }
 }
+
+export async function deleteBookItem(bookId: string, token: string, booksList: HTMLUListElement, bookItem: HTMLDivElement): Promise<void> {
+    if (confirm('Are you sure you want to delete this book?')) {
+        try {
+            await booksController.deleteBookById(bookId, token);
+            booksList.removeChild(bookItem);
+            await booksController.getBooks(token)
+            alert('Book deleted successfully');
+        } catch (error) {
+            console.error('Error deleting book:', error);
+        }
+    }
+}

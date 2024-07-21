@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { BooksController } from "../../controllers/books.controller.js";
-import { createBookItem, updateBookItem } from "./operations.js";
+import { createBookItem, updateBookItem, deleteBookItem } from "./operations.js";
 import { logoutUser } from "./logout.js";
 const booksController = new BooksController();
 const bookForm = document.getElementById('bookForm');
@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => __awaiter(void 0, void 0, vo
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('bg-red-500', 'text-white', 'px-4', 'py-2', 'rounded', 'hover:bg-red-600');
             deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', () => deleteBookItem(book.id, token, booksList, bookItem));
             buttonContainer.appendChild(deleteButton);
             card.appendChild(cardContent);
             card.appendChild(buttonContainer);
